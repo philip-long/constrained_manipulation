@@ -1,7 +1,7 @@
 <launch>
 
  	  <arg name="sleep_time" default="5" />
-	   <param name="robot_description" textfile="$(find valkyrie_model)/model/valkyrie_sim.urdf" />
+	   <param name="robot_description" textfile="$(find constrained_manipulation_pkg)/model/valkyrie_sim.urdf" />
 
         <node name="dummy_joint_states" pkg="valkyrie_model" type="dummy_joint_states.py" output="screen">
 		 <param name="reset_time" value="$(arg sleep_time)" />
