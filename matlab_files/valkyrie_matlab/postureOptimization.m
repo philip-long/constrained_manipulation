@@ -84,7 +84,7 @@ end
 %% STEP 1 Formulate an IK problem that takes joint variables and lf_T_opt
 % This finds the best posture to maximize the manipulability polytope
 %
-tic
+
 fmincon_options= optimoptions('fmincon',...
     'Algorithm',solver_name,...
     'OptimalityTolerance',5.0,...
@@ -120,12 +120,13 @@ for i=1:length(qnames)
         end
     end
 end
-
+tic
 [x,fval_init,exitflag_init,output_init,lambda]=fmincon(@(x)fun(x,val,x0(4:end),qnames,RobotChain,object_constants,gains),...
     x0,A,b,Aeq,beq,lb,ub,@(x)nonlcon(op_P_d,x,val),fmincon_options);
+initial_t=toc;
 x_lf=x(1:3);
 x_joints=x(4:end);
-toc
+
 
 if(exitflag_init==-1 || exitflag_init==-2)
     disp ('Initial_optimization failed');
@@ -165,7 +166,7 @@ for i=1:length(qnames)
         end
     end
 end
-
+TIM=[];
 POS=[];
 COST=[];
 DIST=[];
@@ -190,11 +191,11 @@ for a=1:size(Desired_Vertices.V,1)
     lf_Pd_cell(1)=temp(1);
     lf_Pd_cell(2)=temp(2);
     lf_Pd_cell(3)=temp(3);
-   
+    tic;
     [xwk,fval,exitflag,output,lambda]=fmincon(@(xwk)costWrkspace(xwk,val,x0,lf_Pd_cell,RobotChain),...
         x0,A,b,Aeq,beq,lb,ub,...
         @(xwk)nloconWrkSpace(xwk,val,lfTrfd,lf_objects,RobotChain),fmincon_options2);
-
+    tt=toc;
     wp=getManipulability(val,xwk,qnames,RobotChain );
     wpstar=getConstrainedManipulability(val,xwk,qnames,lf_objects,RobotChain,gains);
     
@@ -213,6 +214,7 @@ for a=1:size(Desired_Vertices.V,1)
     end
     
     POS=[POS;lf_Pd_cell'];
+    TIM=[TIM;tt];
     COST=[COST;wp];
     WPSTAR=[WPSTAR;wpstar.volume];
     DIST=[DIST;d];
