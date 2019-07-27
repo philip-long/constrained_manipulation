@@ -1,9 +1,13 @@
 
-function initial_condition_ok=postureOptimization(constrained,object_case,initial_condition,test_no,solver_name)
+function initial_condition_ok=postureOptimization(constrained,object_case,initial_condition,test_no,solver_name,only_posture_op)
 %postureOptimization Obtain the posture of the robot to mazimize some
 %criteria for a given left palm desired pose in a cluttered environment. 
 % 
-
+ignore_workspace_analysis=false;
+if(nargin>5)
+    ignore_workspace_analysis=true;
+end 
+    
 [RobotChain,gains]=getRobotParameters();
 object_constants=getObjectParams(object_case); % CHANGES THE OBJECT CASE
 
@@ -135,6 +139,13 @@ if(exitflag_init==-1 || exitflag_init==-2)
     save(file_name)
     return
 end
+
+if(ignore_workspace_analysis)
+    save(file_name);
+    notifySend('I am finished early');
+    return;
+end
+
 %% Workspace Analysis with the resulting posture in the volume around the desired pose try to find feasible solutions.
 % interior-point
 
