@@ -117,7 +117,7 @@ SEPARATE=false;
 wp_time=[];
 wp_star_time=[];
 SQP=true; % ANALYSE SQP RESULTS TRUE==SQP FALSE=INTERIOR_POINT
-for j=1:30 % 30 is the total number of tests
+for j=1:50 % 30 is the total number of tests
     wp_result_valid=false;
     wpstar_result_valid=false;
     for i=1:length(ResultFiles)
