@@ -9,7 +9,7 @@
 close all,clear all,
 clc
 addpath(genpath('~/tbxmanager'))
-addpath(genpath('/media/philip/39C2CB4B4DF25122/MatlabFunctions/MATLAB/GeometricFunctions'))
+addpath(genpath('/media/philip/39C2CB4B4DF25122/MatlabFunctions/MATLAB/robot-functions'))
 % test configurations q1=[0.8,-0.9], q2=[0.8,-1.53]
 try
     joint= rossubscriber('/joint_states');
@@ -227,9 +227,9 @@ for k=1:length(Hyperoctant)
     hold on
    %[s,v]=eig(J_ext_oj{k}(1:2,:))
 
-    ellipsoidCreate(J{end}(1:2,:),0.2,[1.0,0.0,0.0])
-    ellipsoidCreate(J_ext_o{k}(1:2,:),0.4,[0.0,1.0,0.0])
-    ellipsoidCreate(J_ext_oj{k}(1:2,:),0.6,[0.0,0.0,1.0])    
+    ellipsoidCreate(J{end}(1:2,:),0.2,[1.0,1.0,1.0])
+    ellipsoidCreate(J_ext_o{k}(1:2,:),0.4,[0.5,0.5,0.5])
+    ellipsoidCreate(J_ext_oj{k}(1:2,:),0.6,[0.0,0.0,0.0])    
     xlim([-0.6316, 0.6316]);
     ylim([ -1.8169, 1.8169]);
     xticks([-0.6 -0.4 -0.2 0 0.2 0.4 0.6])

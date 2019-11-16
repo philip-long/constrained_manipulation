@@ -139,10 +139,10 @@ Pv=Polyhedron(V_orig);
 Pv_obs=Polyhedron(V_obs);
 Pv_obs_jl=Polyhedron(V_obs_jl);
 
-Pv.plot('color',[1.0 0.0 0.0],'Alpha',0.2,'LineStyle','-','LineWidth',1.0,'Marker','s')
+Pv.plot('color',[1.0 1.0 1.0],'Alpha',0.2,'LineStyle','-','LineWidth',1.0,'Marker','s')
 hold on
-Pv_obs.plot('color',[0.0 1.0 0.0],'Alpha',0.4,'LineWidth',1.5,'Marker','x')
-Pv_obs_jl.plot('color',[0.0 0.0 1.0],'Alpha',0.6,'LineWidth',3.0,'Marker','o','LineStyle',':')
+Pv_obs.plot('color',[0.5 0.5 0.5],'Alpha',0.4,'LineWidth',1.5,'Marker','x')
+Pv_obs_jl.plot('color',[0.0 0.0 0.0],'Alpha',0.6,'LineWidth',3.0,'Marker','o','LineStyle',':')
 xlabel('v_{x} [m s^{-1}]','Interpreter','Tex')
 ylabel('v_{y} [m s^{-1}]','Interpreter','Tex')
 
